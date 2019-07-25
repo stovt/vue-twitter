@@ -30,5 +30,8 @@
     "lint-staged": "^9.2.1",
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.6.10"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   }
 }
