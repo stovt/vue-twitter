@@ -1,30 +1,53 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import HomePage from './views/HomePage.vue';
+import UserService from './services/UserService';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: HomePage
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ './views/LoginPage.vue')
     },
     {
-      path: '/kitchenSink',
-      name: 'kitchenSink',
-      component: () => import(/* webpackChunkName: "kitchenSink" */ './views/KitchenSink.vue')
-    }
+      path: '/register',
+      name: 'register',
+      component: () => import(/* webpackChunkName: "register" */ './views/RegisterPage.vue')
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import(/* webpackChunkName: "logout" */ './views/LogoutPage.vue')
+    },
+    { path: '*', redirect: '/' }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login', '/register'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = UserService.loggedIn();
+
+  if (authRequired && !loggedIn) {
+    return next('/login');
+  }
+
+  if (!authRequired && loggedIn) {
+    return next('/');
+  }
+
+  return next();
+});
+
+export default router;
