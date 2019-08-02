@@ -17,7 +17,7 @@ const actions: ActionTree<ProfileState, RootState> = {
         router.push('/');
       })
       .catch(error => {
-        UserService.handleError(error, message => commit('loginError', message));
+        commit('loginError', error);
       });
   },
   register(
@@ -33,9 +33,7 @@ const actions: ActionTree<ProfileState, RootState> = {
         commit('registerSuccessful', user);
         router.push({ path: 'login', query: { fromRegister: 'true' } });
       })
-      .catch(error => {
-        UserService.handleError(error, message => commit('registerError', message));
-      });
+      .catch(error => commit('registerError', error));
   },
   logout({ commit }) {
     UserService.logout();

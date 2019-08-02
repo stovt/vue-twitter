@@ -1,22 +1,15 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
+import interceptorsSetup from './helpers/interceptors';
 
-const authHeader = () => {
-  const localUser = localStorage.getItem('user');
-  const user = localUser ? JSON.parse(localUser) : null;
-
-  if (user && user.token) {
-    return { Authorization: `Bearer ${user.token}` };
+const instance = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
   }
-  return {};
-};
+});
 
-export default () =>
-  axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...authHeader()
-    }
-  });
+interceptorsSetup(instance);
+
+export default () => instance;
