@@ -56,7 +56,7 @@ export default class HomePage extends Vue {
   }
 
   get user() {
-    return this.$store.state.profile;
+    return this.$store.state.profile.user;
   }
 
   get tweets() {

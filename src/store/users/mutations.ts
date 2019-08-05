@@ -7,7 +7,7 @@ const mutations: MutationTree<UsersState> = {
   fetchUsers(state, payload: Users) {
     state.all = payload;
   },
-  fetchUserSuccess(state, payload: { id: number; user: User }) {
+  fetchUser(state, payload: { id: number; user: User }) {
     const { id, user } = payload;
 
     Vue.set(state.byId, id, user);

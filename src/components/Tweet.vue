@@ -25,8 +25,8 @@
       {{ removeTweetError }}
     </div>
     <div v-if="showComments" class="ml-5">
-      <hr />
-      <CommentForm :parent="tweet.id"></CommentForm>
+      <hr v-if="user" />
+      <CommentForm v-if="user" :parent="tweet.id"></CommentForm>
       <Comments :parent="tweet.id"></Comments>
     </div>
     <hr />
@@ -65,7 +65,9 @@ export default class Tweet extends Vue {
   removeTweetError: string | null = null;
 
   mounted() {
-    this.canRemove = this.$store.state.profile.userId === this.tweet.userId;
+    if (this.$store.state.profile.user) {
+      this.canRemove = this.$store.state.profile.user.userId === this.tweet.userId;
+    }
   }
 
   toggleComments() {
@@ -95,6 +97,10 @@ export default class Tweet extends Vue {
 
   get date() {
     return distanceInWordsToNow(new Date(this.tweet.createdAt));
+  }
+
+  get user() {
+    return this.$store.state.profile.user;
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <hr v-if="!user && !!comments.length" />
     <Comment v-for="comment in comments" :key="comment.id" :comment="comment"></Comment>
   </div>
 </template>
@@ -25,6 +26,10 @@ export default class Comments extends Vue {
 
   get comments() {
     return this.$store.getters.tweetComments(this.parent);
+  }
+
+  get user() {
+    return this.$store.state.profile.user;
   }
 }
 </script>

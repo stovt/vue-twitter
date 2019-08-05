@@ -1,7 +1,9 @@
 import { User, Users } from './user';
 import { Tweets, TweetsByUserId } from './tweet';
 
-export type ProfileState = User | null;
+export interface ProfileState {
+  user: User | null;
+}
 
 export interface TweetsState {
   allTweets: Tweets;

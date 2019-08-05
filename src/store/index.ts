@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
   mutations: {
     tweet(state, tweet: Tweet) {
-      const userId = state.profile ? state.profile.userId : null;
+      const userId = state.profile.user ? state.profile.user.userId : null;
       if (userId) {
         state.tweets.allTweets.push(tweet);
         if (state.tweets.tweetsByUserId[userId]) {
@@ -35,11 +35,12 @@ export default new Vuex.Store({
         );
       }
 
-      if (state.profile && state.tweets.tweetsByUserId[state.profile.userId]) {
-        Vue.set(state.tweets.tweetsByUserId, state.profile.userId, {
-          ...state.tweets.tweetsByUserId[state.profile.userId],
-          data: state.tweets.tweetsByUserId[state.profile.userId].filter(t => t.id !== id)
-        });
+      if (state.profile.user && state.tweets.tweetsByUserId[state.profile.user.userId]) {
+        Vue.set(
+          state.tweets.tweetsByUserId,
+          state.profile.user.userId,
+          state.tweets.tweetsByUserId[state.profile.user.userId].filter(t => t.id !== id)
+        );
       }
     }
   }

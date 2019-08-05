@@ -4,10 +4,10 @@ import { ProfileState } from '@/types/state';
 
 const mutations: MutationTree<ProfileState> = {
   login(state, payload: User) {
-    state = payload;
+    state.user = payload;
   },
   logout(state) {
-    state = null;
+    state.user = null;
   }
 };
 
