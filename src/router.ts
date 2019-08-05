@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HomePage from './views/HomePage.vue';
-import UserService from './services/UserService';
 
 Vue.use(Router);
 
@@ -29,10 +28,26 @@ const router = new Router({
       name: 'logout',
       component: () => import(/* webpackChunkName: "logout" */ './views/LogoutPage.vue')
     },
+    {
+      path: '/tweets',
+      name: 'tweets',
+      component: () => import(/* webpackChunkName: "tweets" */ './views/TweetsPage.vue')
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: () => import(/* webpackChunkName: "users" */ './views/UsersPage.vue')
+    },
+    {
+      path: '/users/:id',
+      name: 'user',
+      component: () => import(/* webpackChunkName: "user" */ './views/UserPage.vue')
+    },
     { path: '*', redirect: '/' }
   ]
 });
 
+/*
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login', '/register'];
@@ -49,5 +64,6 @@ router.beforeEach((to, from, next) => {
 
   return next();
 });
+*/
 
 export default router;

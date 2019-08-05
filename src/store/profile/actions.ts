@@ -5,35 +5,30 @@ import router from '@/router';
 
 const actions: ActionTree<ProfileState, RootState> = {
   login({ commit }, payload: { email: string; password: string }) {
-    commit('login');
-
     const { email, password } = payload;
 
-    UserService.login(email, password)
+    return UserService.login(email, password)
       .then(res => {
         const user = res.data;
         localStorage.setItem('user', JSON.stringify(user));
-        commit('loginSuccessful', user);
+        commit('login', user);
         router.push('/');
+        return Promise.resolve();
       })
-      .catch(error => {
-        commit('loginError', error);
-      });
+      .catch(error => Promise.reject(error));
   },
   register(
-    { commit },
+    omitStore,
     payload: { firstName: string; lastName: string; email: string; password: string }
   ) {
-    commit('register');
-
     const { firstName, lastName, email, password } = payload;
 
-    UserService.register(firstName, lastName, email, password)
-      .then(user => {
-        commit('registerSuccessful', user);
+    return UserService.register(firstName, lastName, email, password)
+      .then(() => {
         router.push({ path: 'login', query: { fromRegister: 'true' } });
+        return Promise.resolve();
       })
-      .catch(error => commit('registerError', error));
+      .catch(error => Promise.reject(error));
   },
   logout({ commit }) {
     UserService.logout();

@@ -1,5 +1,4 @@
 import jwtDecode from 'jwt-decode';
-import { AxiosResponse } from 'axios';
 import Api from '@/services/Api';
 
 export default {
@@ -31,12 +30,21 @@ export default {
     try {
       const decodedToken = jwtDecode<{ exp: number }>(token);
       if (decodedToken.exp < Date.now() / 1000) {
-        this.logout();
         return true;
       }
       return false;
     } catch (err) {
       return false;
     }
+  },
+  checkAuth() {
+    const loggedIn = this.loggedIn();
+    if (!loggedIn) this.logout();
+  },
+  getUsers() {
+    return Api().get('/users/get/all');
+  },
+  getUser(id: string) {
+    return Api().get(`/users/get/${id}`);
   }
 };

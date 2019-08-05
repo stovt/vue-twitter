@@ -7,12 +7,7 @@ import { ProfileState, RootState } from '@/types/state';
 const localUser = localStorage.getItem('user');
 const user = localUser ? JSON.parse(localUser) : null;
 
-export const state: ProfileState = {
-  user: user || null,
-  loading: false,
-  loginError: null,
-  registerError: null
-};
+export const state: ProfileState = user || null;
 
 const profile: Module<ProfileState, RootState> = {
   state,

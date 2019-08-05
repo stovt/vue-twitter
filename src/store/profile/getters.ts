@@ -3,9 +3,8 @@ import { ProfileState, RootState } from '@/types/state';
 
 const getters: GetterTree<ProfileState, RootState> = {
   fullName(state): string {
-    const { user } = state;
-    const firstName = (user && user.firstName) || '';
-    const lastName = (user && user.lastName) || '';
+    const firstName = (state && state.firstName) || '';
+    const lastName = (state && state.lastName) || '';
     return `${firstName} ${lastName}`;
   }
 };
