@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{ error }}</div>
+    <LoadingAndErrorHandler :error="error"></LoadingAndErrorHandler>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label htmlFor="firstName">First Name</label>
@@ -96,8 +96,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 
-@Component
+@Component({
+  components: {
+    LoadingAndErrorHandler
+  }
+})
 export default class RegisterForm extends Vue {
   firstName: string = '';
 

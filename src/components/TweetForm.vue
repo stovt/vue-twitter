@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{ error }}</div>
+    <LoadingAndErrorHandler :error="error"></LoadingAndErrorHandler>
     <form class="mt-3" @submit.prevent="handleSubmit">
       <div class="form-group">
         <textarea
@@ -29,8 +29,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 
-@Component
+@Component({
+  components: {
+    LoadingAndErrorHandler
+  }
+})
 export default class TweetForm extends Vue {
   message: string = '';
 

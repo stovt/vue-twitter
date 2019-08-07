@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div v-if="userLoading" class="alert alert-secondary" role="alert">Loading...</div>
-    <div v-if="userError" class="alert alert-danger" role="alert">{{ userError }}</div>
+    <LoadingAndErrorHandler :loading="userLoading" :error="userError"></LoadingAndErrorHandler>
     <h4 v-if="user" class="mb-5">
       <b
         >{{ fullName }},
@@ -12,18 +11,19 @@
         ></b
       >
     </h4>
-    <div v-if="tweetsLoading" class="alert alert-secondary" role="alert">Loading...</div>
-    <div v-if="tweetsError" class="alert alert-danger" role="alert">{{ tweetsError }}</div>
+    <LoadingAndErrorHandler :loading="tweetsLoading" :error="tweetsError"></LoadingAndErrorHandler>
     <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet"></Tweet>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 import Tweet from '@/components/Tweet.vue';
 
 @Component({
   components: {
+    LoadingAndErrorHandler,
     Tweet
   }
 })

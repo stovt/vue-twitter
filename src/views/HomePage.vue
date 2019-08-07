@@ -12,19 +12,20 @@
       <router-link to="/register" class="btn-link">Sign Up</router-link> to post your tweets.
     </h5>
     <TweetForm v-if="user"></TweetForm>
-    <div v-if="tweetsLoading" class="alert alert-secondary" role="alert">Loading...</div>
-    <div v-if="tweetsError" class="alert alert-danger" role="alert">{{ tweetsError }}</div>
+    <LoadingAndErrorHandler :loading="tweetsLoading" :error="tweetsError"></LoadingAndErrorHandler>
     <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet"></Tweet>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 import TweetForm from '@/components/TweetForm.vue';
 import Tweet from '@/components/Tweet.vue';
 
 @Component({
   components: {
+    LoadingAndErrorHandler,
     TweetForm,
     Tweet
   }

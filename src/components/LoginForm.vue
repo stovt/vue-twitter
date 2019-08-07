@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{ error }}</div>
+    <LoadingAndErrorHandler :error="error"></LoadingAndErrorHandler>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="email">Email</label>
@@ -49,8 +49,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 
-@Component
+@Component({
+  components: {
+    LoadingAndErrorHandler
+  }
+})
 export default class LoginForm extends Vue {
   email: string = '';
 

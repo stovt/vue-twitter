@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div v-if="loading" class="alert alert-secondary" role="alert">Loading...</div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{ error }}</div>
+    <LoadingAndErrorHandler :loading="loading" :error="error"></LoadingAndErrorHandler>
     <ul class="list-group">
       <li v-for="user in users" :key="user.id" class="list-group-item">
         <div>{{ user.fullName }}</div>
@@ -15,8 +14,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 
-@Component
+@Component({
+  components: {
+    LoadingAndErrorHandler
+  }
+})
 export default class UsersPage extends Vue {
   loading: boolean = false;
 

@@ -20,10 +20,10 @@
       <div class="d-flex align-items-center"><LikeIcon></LikeIcon>1</div>
       <TrashIcon v-if="canRemove" @click.native="removeTweet"></TrashIcon>
     </div>
-    <div v-if="removeTweetLoading" class="alert alert-secondaty" role="alert">Loading...</div>
-    <div v-if="removeTweetError" class="alert alert-danger" role="alert">
-      {{ removeTweetError }}
-    </div>
+    <LoadingAndErrorHandler
+      :loading="removeTweetLoading"
+      :error="removeTweetError"
+    ></LoadingAndErrorHandler>
     <div v-if="showComments" class="ml-5">
       <hr v-if="user" />
       <CommentForm v-if="user" :parent="tweet.id"></CommentForm>
@@ -36,6 +36,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { distanceInWordsToNow } from 'date-fns';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 import CommentForm from '@/components/CommentForm.vue';
 import Comments from '@/components/Comments.vue';
 import CommentIcon from '@/components/Icons/CommentIcon.vue';
@@ -46,6 +47,7 @@ import TweetsService from '@/services/TweetsService';
 
 @Component({
   components: {
+    LoadingAndErrorHandler,
     CommentForm,
     Comments,
     CommentIcon,

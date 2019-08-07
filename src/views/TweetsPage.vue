@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div v-if="loading" class="alert alert-secondary" role="alert">Loading...</div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{ error }}</div>
+    <LoadingAndErrorHandler :loading="loading" :error="error"></LoadingAndErrorHandler>
     <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet"></Tweet>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 import Tweet from '@/components/Tweet.vue';
 
 @Component({
   components: {
+    LoadingAndErrorHandler,
     Tweet
   }
 })
