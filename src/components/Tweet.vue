@@ -15,7 +15,7 @@
     <p class="mt-2" v-html="tweet.body"></p>
     <div class="d-flex justify-content-between">
       <div class="d-flex align-items-center">
-        <CommentIcon @click.native="toggleComments"></CommentIcon>1
+        <CommentIcon @click.native="toggleComments"></CommentIcon>{{ tweet.childrenAmount || '' }}
       </div>
       <div class="d-flex align-items-center"><LikeIcon></LikeIcon>1</div>
       <TrashIcon v-if="canRemove" @click.native="removeTweet"></TrashIcon>
