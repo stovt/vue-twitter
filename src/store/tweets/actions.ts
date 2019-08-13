@@ -56,6 +56,17 @@ const actions: ActionTree<TweetsState, RootState> = {
       })
       .catch(error => Promise.reject(error));
   },
+  likeTweet({ commit }, payload: { id: string }) {
+    const { id } = payload;
+
+    return TweetsService.likeTweet(id)
+      .then(res => {
+        const { tweet } = res.data;
+        commit('likeTweet', { tweet });
+        return Promise.resolve();
+      })
+      .catch(error => Promise.reject(error));
+  },
   removeTweet({ commit }, payload: { id: string }) {
     const { id } = payload;
 

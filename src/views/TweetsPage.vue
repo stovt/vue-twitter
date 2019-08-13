@@ -22,19 +22,17 @@ export default class TweetsPage extends Vue {
   error: string | null = null;
 
   mounted() {
-    if (!this.tweets.length) {
-      this.loading = true;
+    this.loading = true;
 
-      this.$store
-        .dispatch('fetchAllTweets')
-        .then(() => {
-          this.loading = false;
-        })
-        .catch(error => {
-          this.loading = false;
-          this.error = error;
-        });
-    }
+    this.$store
+      .dispatch('fetchAllTweets')
+      .then(() => {
+        this.loading = false;
+      })
+      .catch(error => {
+        this.loading = false;
+        this.error = error;
+      });
   }
 
   get tweets() {

@@ -17,12 +17,14 @@
       <div class="d-flex align-items-center">
         <CommentIcon @click.native="toggleComments"></CommentIcon>{{ tweet.childrenAmount || '' }}
       </div>
-      <div class="d-flex align-items-center"><LikeIcon></LikeIcon>1</div>
+      <div class="d-flex align-items-center">
+        <LikeIcon :liked="tweet.liked" @click.native="likeTweet"></LikeIcon>{{ tweet.likesCount }}
+      </div>
       <TrashIcon v-if="canRemove" @click.native="removeTweet"></TrashIcon>
     </div>
     <LoadingAndErrorHandler
-      :loading="removeTweetLoading"
-      :error="removeTweetError"
+      :loading="likeTweetLoading || removeTweetLoading"
+      :error="likeTweetError || removeTweetError"
     ></LoadingAndErrorHandler>
     <div v-if="showComments" class="ml-5">
       <hr v-if="user" />
@@ -62,6 +64,10 @@ export default class Tweet extends Vue {
 
   canRemove: boolean = false;
 
+  likeTweetLoading: boolean = false;
+
+  likeTweetError: string | null = null;
+
   removeTweetLoading: boolean = false;
 
   removeTweetError: string | null = null;
@@ -74,6 +80,23 @@ export default class Tweet extends Vue {
 
   toggleComments() {
     this.showComments = !this.showComments;
+  }
+
+  likeTweet() {
+    this.likeTweetLoading = true;
+    this.likeTweetError = null;
+
+    this.$store
+      .dispatch('likeTweet', {
+        id: this.tweet.id
+      })
+      .then(() => {
+        this.likeTweetLoading = false;
+      })
+      .catch(error => {
+        this.likeTweetLoading = false;
+        this.likeTweetError = error;
+      });
   }
 
   removeTweet() {

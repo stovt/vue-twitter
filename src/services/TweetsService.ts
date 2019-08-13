@@ -16,6 +16,9 @@ export default {
   getTweetComments(parent: number) {
     return Api().get(`/tweet/get/parent/${parent}`);
   },
+  likeTweet(id: string) {
+    return Api().post(`/like/${id}`);
+  },
   removeTweet(id: string) {
     return Api().post(`/tweet/delete/${id}`);
   }
