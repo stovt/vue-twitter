@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { distanceInWordsToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler.vue';
 import CommentForm from '@/components/CommentForm.vue';
 import Comments from '@/components/Comments.vue';
@@ -121,7 +121,7 @@ export default class Tweet extends Vue {
   }
 
   get date() {
-    return distanceInWordsToNow(new Date(this.tweet.createdAt));
+    return formatDistanceToNow(new Date(this.tweet.createdAt));
   }
 
   get user() {
