@@ -41,7 +41,7 @@ export default class HomePage extends Vue {
       this.tweetsError = null;
 
       this.$store
-        .dispatch('fetchUserTweets', { userId: this.user.userId })
+        .dispatch('fetchUserTweets', { userId: this.user.id })
         .then(() => {
           this.tweetsLoading = false;
         })
@@ -61,7 +61,7 @@ export default class HomePage extends Vue {
   }
 
   get tweets() {
-    return this.user ? this.$store.getters.userTweets(this.user.userId) : [];
+    return this.user ? this.$store.getters.userTweets(this.user.id) : [];
   }
 }
 </script>

@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
   mutations: {
     tweet(state, tweet: Tweet) {
-      const userId = state.profile.user ? state.profile.user.userId : null;
+      const userId = state.profile.user ? state.profile.user.id : null;
       if (userId) {
         if (state.tweets.tweetsByUserId[userId]) {
           state.tweets.tweetsByUserId[userId].push(tweet);
@@ -27,14 +27,14 @@ export default new Vuex.Store({
     likeTweet(state, payload: { tweet: Tweet }) {
       const { tweet } = payload;
 
-      if (state.profile.user && state.tweets.tweetsByUserId[state.profile.user.userId]) {
-        const likedUserTweet = state.tweets.tweetsByUserId[state.profile.user.userId].find(
+      if (state.profile.user && state.tweets.tweetsByUserId[state.profile.user.id]) {
+        const likedUserTweet = state.tweets.tweetsByUserId[state.profile.user.id].find(
           t => t.id === tweet.id
         );
         if (likedUserTweet) {
           Vue.set(
-            state.tweets.tweetsByUserId[state.profile.user.userId],
-            state.tweets.tweetsByUserId[state.profile.user.userId].indexOf(likedUserTweet),
+            state.tweets.tweetsByUserId[state.profile.user.id],
+            state.tweets.tweetsByUserId[state.profile.user.id].indexOf(likedUserTweet),
             tweet
           );
         }
@@ -43,11 +43,11 @@ export default new Vuex.Store({
     removeTweet(state, payload: { id: number }) {
       const { id } = payload;
 
-      if (state.profile.user && state.tweets.tweetsByUserId[state.profile.user.userId]) {
+      if (state.profile.user && state.tweets.tweetsByUserId[state.profile.user.id]) {
         Vue.set(
           state.tweets.tweetsByUserId,
-          state.profile.user.userId,
-          state.tweets.tweetsByUserId[state.profile.user.userId].filter(t => t.id !== id)
+          state.profile.user.id,
+          state.tweets.tweetsByUserId[state.profile.user.id].filter(t => t.id !== id)
         );
       }
     }
